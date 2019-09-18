@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View,StatusBar,ScrollView,Dimensions } from 'react-native';
+import Constants from 'expo-constants';
+import { Header } from 'react-native-elements';
+import { Ionicons,AntDesign,Feather,FontAwesome } from '@expo/vector-icons';
+//import { LinearGradient } from 'expo-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
+import PieChart from 'react-native-pie-chart';
+import Doughnut from './pieChart';
 
 export class dashboard extends Component {
 
@@ -11,13 +18,50 @@ export class dashboard extends Component {
       }}
     />
   );
+  static navigationOptions = {
+    drawerIcon: ({ tintColor }) => (
+        <FontAwesome name="home" style={{ fontSize: 24, color: tintColor }} />
+    )
+}
 
   render() {
 
-   
+    const chart_wh = 200
+
+    const series = [1, 1, 2]
+
+    const sliceColor = ['#CA226B','#FAE20A','#22AECA']
+
+    
 
   return (
-    <View>
+    <ScrollView>
+      <View style={styles.header}>
+     
+      {/* <MyHeader navigation={props.navigation} title="Dashboard" /> */}
+        <Header
+        
+          // leftComponent={{
+          //   icon: 'menu',
+          //   color: '#fff',
+          //   //onPress: () => alert('ea'),
+          // }}
+          leftComponent={
+            
+          <Feather name="menu" size={25} color="#fff" onPress={() => this.props.navigation.openDrawer()}
+          />
+        }
+        //  leftComponent={<HamburgerMenu navigation={props.navigation} />}
+          centerComponent={{ text: 'Dashboard', style: { color: '#fff',fontSize: 20, fontWeight: 'bold'} }}
+          rightComponent={
+           // { icon: 'home', color: '#fff' }
+           <AntDesign name="logout" size={20} color="#fff" onPress={() => this.props.navigation.goBack()} />
+           
+        }
+          backgroundColor="#000099"
+          
+        />
+      </View>
     <View style={{ height: 20, backgroundColor: '#fff'}}></View>
 
     <View style={{ height: 80, backgroundColor: '#fff',padding:20,shadowColor: "#000",
@@ -31,7 +75,7 @@ export class dashboard extends Component {
     <Text style={{fontWeight: 'bold'}}>Order Status:     </Text>
     <Text style={{fontSize: 17,color: '#605e69'}}>SUCCESS{'\n'}</Text>
    
-    <Text style={{fontSize: 12}}>CPQ-H12354</Text>
+    <Text style={{fontSize: 12}}>ID - 37745995</Text>
     </Text>
     </View>
     <View style={{borderBottomColor: '#9b9a9c',borderBottomWidth: 0.5}} />
@@ -55,7 +99,7 @@ export class dashboard extends Component {
 
       <Text style={styles.textStyles}>
 
-        <Text style={{fontSize: 40}}>1.50 </Text>
+        <Text style={{fontSize: 40}}>1.30 </Text>
         <Text>GB{'\n'}</Text>
 
         <Text style={{fontSize: 12}}>remaining of 1.5 GB{'\n'}</Text>
@@ -65,14 +109,14 @@ export class dashboard extends Component {
      
     </View>
     
-    <View style={{borderBottomColor: '#9b9a9c',borderBottomWidth: 0.5, marginTop:130}} />
+    <View style={{borderBottomColor: '#9b9a9c',borderBottomWidth: 0.5,}} />
     {/* <View style={{backgroundColor: '#fff', height: 20}} /> */}
 
     <View style={{ backgroundColor: '#dcd7de',padding:20}} >
     <Text style={{fontSize: 15,textAlign: 'center',paddingBottom:10}}>Current Plan Details</Text>
     <View style={styles.box} >
         <Text style={{fontSize: 25}}>MRP 399</Text>
-        <Text style={{fontSize: 12, color:'#9b9a9c',paddingBottom:5}}>Expires on Nov 15,2019, 02:30PM</Text>
+        <Text style={{fontSize: 12, color:'#9b9a9c',paddingBottom:5}}>Expires on Nov 15, 2019, 02:30PM</Text>
         <FlatList
         style={styles.flist}
           data={[
@@ -96,8 +140,11 @@ export class dashboard extends Component {
       </View>
       <View style={{borderBottomColor: '#9b9a9c',borderBottomWidth: 0.5}} />
       
+      <Doughnut/>
+
+
      
-    </View>
+    </ScrollView>
   );
 }
 }
@@ -155,10 +202,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-circle: {
-    width: 10,
-    height: 10,
-    borderRadius: 10/2,
-    backgroundColor: '#00b009'
-}
+
+header: {
+  //flex: 1,
+  //paddingTop: Constants.statusBarHeight,
+  backgroundColor: '#0000FF',
+},
+
 });
